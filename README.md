@@ -126,3 +126,8 @@ powershell -ExecutionPolicy Bypass -File .\scripts\register_task.ps1 -IntervalMi
 - 只读取配置里列出的文件夹；Exchange 环境的发件人 SMTP 地址会自动从 X500 地址解析。
 - `provider = "openai"` 意味着邮件正文会发送到你配置的第三方模型服务——请在合规允许的前提下启用。
 - 归档目录按文件存放，邮件正文超过 8000 字符会在 Markdown 中截断（全文可在 SQLite 的 `body_text` 查到，上限 50000 字符）。
+
+## 许可证
+
+[MIT](LICENSE) © 2026 SighN9
+
