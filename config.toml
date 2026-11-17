@@ -1,0 +1,100 @@
+# outlook-digest 配置
+# 路径均相对于项目根目录；密钥请放在环境变量，不要写进本文件。
+
+[general]
+lookback_hours = 24      # 每次运行回看窗口（去重兜底，重叠部分不会重复归档）
+max_per_run = 200        # 单次最多处理多少封
+max_scan = 2000          # 单次在单个文件夹内最多扫描多少封（防止超大邮箱卡死）
+archive_dir = "archive"
+db_path = "data/mail.db"
+log_dir = "data/logs"
+
+[folders]
+# 支持 "Inbox"/"收件箱"、"Sent"/"已发送"、"Drafts"、"Deleted"，或用 / 表示子文件夹，如 "Inbox/项目组"
+include = ["Inbox"]
+skip_folders = []
+
+[filters]
+# 发件人邮箱或域名（小写，含即跳过）
+skip_senders = []
+# 主题（原文或统一标题）包含以下任一关键词则跳过
+skip_subject_keywords = ["退订", "unsubscribe", "newsletter"]
+# 非空则只保留命中其中之一的关键词（同样对原文与统一标题生效）
+include_keywords = []
+
+[translate]
+# off = 不转换；glossary = 术语表归一化；argos = 本地离线神经翻译（推荐）
+engine = "argos"
+
+# 术语表：英文 → 中文。argos 翻译后仍会套用一次，用于统一缩写与专有名词。
+[glossary]
+"meeting" = "会议"
+"invitation" = "邀请"
+"invite" = "邀请"
+"notice" = "通知"
+"notification" = "通知"
+"reminder" = "提醒"
+"announcement" = "公告"
+"training" = "培训"
+"approval" = "审批"
+"approve" = "审批"
+"invoice" = "发票"
+"payment" = "付款"
+"reimbursement" = "报销"
+"quotation" = "报价"
+"contract" = "合同"
+"deadline" = "截止"
+"due" = "截止"
+"urgent" = "紧急"
+"asap" = "尽快"
+"maintenance" = "维护"
+"survey" = "问卷"
+"password" = "密码"
+"reset" = "重置"
+"access request" = "访问申请"
+"ticket" = "工单"
+"report" = "报告"
+"update" = "更新"
+"upgrade" = "升级"
+"holiday" = "假期"
+"vaccination" = "疫苗接种"
+"welcome" = "欢迎"
+"performance review" = "绩效评估"
+"year-end" = "年终"
+"inventory" = "盘点"
+"compliance" = "合规"
+"independence" = "独立性"
+"audit" = "审计"
+"client" = "客户"
+"newsletter" = "简报"
+"summary" = "摘要"
+"special edition" = "特刊"
+"edition" = "版本"
+"outage" = "故障"
+"resolved" = "已解决"
+"restored" = "已恢复"
+"disruption" = "中断"
+"post course" = "课后"
+"timesheet" = "工时表"
+"timesheet variance" = "工时差异"
+
+[ai]
+# mock = 本地规则（不联网）；openai = 任意 OpenAI 兼容 /v1/chat/completions 接口
+provider = "mock"
+base_url = "https://api.deepseek.com/v1"
+model = "deepseek-chat"
+api_key_env = "OUTLOOK_DIGEST_API_KEY"
+timeout_seconds = 60
+max_chars = 12000        # 送模型的正文上限
+temperature = 0.2
+
+# 分类关键词，按顺序匹配，命中第一个即归类
+[categories]
+"会议" = ["会议", "meeting", "invite", "邀请", "agenda", "日程"]
+"审批" = ["审批", "approve", "approval", "签核", "审核", "authorize"]
+"财务" = ["发票", "invoice", "报销", "付款", "payment", "reimbursement", "对账"]
+"客户" = ["客户", "customer", "client", "合同", "contract", "报价", "quotation"]
+"通知" = ["通知", "notice", "公告", "announcement", "维护", "maintenance"]
+
+[priority]
+urgent_keywords = ["紧急", "urgent", "asap", "今天内", "今天下班前", "立即", "immediately", "eod"]

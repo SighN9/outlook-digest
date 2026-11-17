@@ -1,0 +1,2 @@
+pywin32>=306
+argostranslate>=1.9   # 本地离线翻译；不装时 translate.engine=glossary 仍可用
